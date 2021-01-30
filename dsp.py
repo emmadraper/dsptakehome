@@ -19,4 +19,6 @@ class main():
 
     #go through each entry to get the long_name
     mylist= [row['attributes']['long_name'] for row in data_in_dict['data']]
-    print(mylist)
+    formatli = json.dumps(mylist, indent=4)
+
+    print(formatli)
