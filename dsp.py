@@ -12,13 +12,18 @@ class main():
     else:
         None
 
-    # print(json_data)
-    #load the data into a dict
+    # Question 1
+    # go through each entry to get the long_name
+    def first_question(json_data):
+        #load the data into a dict
+        data_in_dict = json.loads(json_data)
 
-    data_in_dict = json.loads(json_data)
+        mylist= [row['attributes']['long_name'] for row in data_in_dict['data']]
+        formatli = json.dumps(mylist, indent=4)
+        return formatli
 
-    #go through each entry to get the long_name
-    mylist= [row['attributes']['long_name'] for row in data_in_dict['data']]
-    formatli = json.dumps(mylist, indent=4)
+    q1 = first_question(json_data)
+    print(q1)
 
-    print(formatli)
+    def second_question(json_data):
+
