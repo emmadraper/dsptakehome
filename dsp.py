@@ -2,7 +2,9 @@ import requests
 import json
 
 class main():
-    #call the API
+    # call the filtered API
+    # this takehome only deals with subway route transportation so filtering those out API side is a much quicker process
+    # than loading all transportation routes into memory and then filtering
     url = 'https://api-v3.mbta.com/routes?filter[type]=1,2'
     response = requests.get(url)
 
@@ -17,13 +19,33 @@ class main():
     def first_question(json_data):
         #load the data into a dict
         data_in_dict = json.loads(json_data)
-
-        mylist= [row['attributes']['long_name'] for row in data_in_dict['data']]
-        formatli = json.dumps(mylist, indent=4)
+        long_names = [row['attributes']['long_name'] for row in data_in_dict['data']]
+        formatli = json.dumps(long_names, indent=4)
         return formatli
 
     q1 = first_question(json_data)
-    print(q1)
+    #print(q1)
 
+    # last step here is to create and write to a file rather than printing to console
+
+    # Question 2
+    # subway name with the most stops and number of stops
+    # subway route with the least stops and number of stops
+    # A list of the stops that connect two or more subway routes along with the relevant route
+    # names for each of those stops.
     def second_question(json_data):
+
+       #load the data into a dict
+       data_in_dict = json.loads(json_data)
+       new_dict = {'long names': [], 'stops': []}
+       long_names = [row['attributes']['long_name'] for row in data_in_dict['data']]
+       stops = [row['attributes']['direction_destinations'] for row in data_in_dict['data']]
+       new_dict['long names'].append(long_names)
+       new_dict['stops'].append(stops)
+
+       formatd = json.dumps(new_dict)
+       return formatd
+
+    q2 = second_question(json_data)
+    print(q2)
 
