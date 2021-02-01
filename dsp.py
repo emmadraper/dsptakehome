@@ -33,19 +33,19 @@ class main():
     # subway route with the least stops and number of stops
     # A list of the stops that connect two or more subway routes along with the relevant route
     # names for each of those stops.
+    #try hash map
     def second_question(json_data):
 
        #load the data into a dict
        data_in_dict = json.loads(json_data)
-       new_dict = {'long names': [], 'stops': []}
-       long_names = [row['attributes']['long_name'] for row in data_in_dict['data']]
-       stops = [row['attributes']['direction_destinations'] for row in data_in_dict['data']]
-       new_dict['long names'].append(long_names)
-       new_dict['stops'].append(stops)
 
-       formatd = json.dumps(new_dict)
-       return formatd
+       routes={}
+       for item in data_in_dict['data']:
+            key = item['attributes']['long_name']
+            val = item['attributes']['direction_destinations']
+            routes[key]=val
+            formatroutes = json.dumps(routes, indent=4)
+       return formatroutes
 
     q2 = second_question(json_data)
     print(q2)
-
