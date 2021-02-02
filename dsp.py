@@ -1,5 +1,6 @@
 import requests
 import json
+from collections import Counter
 
 class main():
     # call the filtered API
@@ -37,15 +38,19 @@ class main():
     def second_question(json_data):
 
        #load the data into a dict
-       data_in_dict = json.loads(json_data)
-
+       data = json.loads(json_data)
        routes={}
-       for item in data_in_dict['data']:
-            key = item['attributes']['long_name']
-            val = item['attributes']['direction_destinations']
-            routes[key]=val
-            formatroutes = json.dumps(routes, indent=4)
-       return formatroutes
+
+       for item in data['data']:
+           key = item['attributes']['long_name']
+           val_list = item['attributes']['direction_destinations']
+
+           val=[]
+           for v in val_list:
+               val += v.split(' or ')
+           routes[key]=val
+
+           return routes
 
     q2 = second_question(json_data)
     print(q2)
