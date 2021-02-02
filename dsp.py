@@ -25,7 +25,7 @@ class main():
         return formatli
 
     q1 = first_question(json_data)
-    #print(q1)
+    print(q1)
 
     # last step here is to create and write to a file rather than printing to console
 
@@ -46,11 +46,12 @@ class main():
            val_list = item['attributes']['direction_destinations']
 
            val=[]
+           # loop through the list of direction_destinations and remove the ors
            for v in val_list:
                val += v.split(' or ')
            routes[key]=val
 
-           return routes
+       return routes
 
     q2 = second_question(json_data)
     print(q2)
