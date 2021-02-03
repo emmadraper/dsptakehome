@@ -1,6 +1,5 @@
 import requests
 import json
-from collections import Counter
 
 class main():
     # call the filtered API
@@ -25,7 +24,7 @@ class main():
         return formatli
 
     q1 = first_question(json_data)
-    print(q1)
+    #print(q1)
 
     # last step here is to create and write to a file rather than printing to console
 
@@ -33,13 +32,13 @@ class main():
     # subway name with the most stops and number of stops
     # subway route with the least stops and number of stops
     # A list of the stops that connect two or more subway routes along with the relevant route
-    # names for each of those stops.
-    #try hash map
+    # names for each of those stops
     def second_question(json_data):
 
        #load the data into a dict
        data = json.loads(json_data)
        routes={}
+       max_min = {}
 
        for item in data['data']:
            key = item['attributes']['long_name']
@@ -48,10 +47,16 @@ class main():
            val=[]
            # loop through the list of direction_destinations and remove the ors
            for v in val_list:
-               val += v.split(' or ')
-           routes[key]=val
+                val += v.split(' or ')
+                # calculate the length of the stops routes[key]=val returns line name and stops. print(len(stops))
+                count_stops = len(val)
+                routes[key] = count_stops
 
-       return routes
+       maximum = max(routes, key=routes.get)  # Just use 'min' instead of 'max' for minimum.
+       minimum = min(routes, key=routes.get)  # Just use 'min' instead of 'max' for minimum.
+       print(maximum, routes[maximum])
+       print(minimum, routes[minimum])
+
+       return
 
     q2 = second_question(json_data)
-    print(q2)
