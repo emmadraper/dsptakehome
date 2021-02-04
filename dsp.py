@@ -33,6 +33,7 @@ class main():
                 for s in stops:
                     route_object["stops"] += [s["attributes"]["name"]]
                 routes+=[route_object]
+        print(routes)
         maxstops = max(routes, key=lambda x:x['count'])
         minstops = min(routes, key=lambda x:x['count'])
         #print(json.dumps(maxstops))
@@ -44,18 +45,15 @@ class main():
     # List a rail route you could travel to get from one stop to the other.
     # Davis to Kendall -> Redline
     # Ashmont to Arlington -> Redline, Greenline
-    def third_question(data):
-        A = input("What is the first stop? ")
-        B = input("What is the second stop? ")
-        # now I have start and target station, and all I need now is to pull the stops for all stations
-        # and cross those against my starting and ending stations to figure out how to get from point A to B
-        stops = second_question(data) # can use second method for this
-        def find_next_route(A, B, already_path=[]):
-            connected_paths = [] # need an array to store the connected paths
-            direct=[] # need an array to track if A and B are direct
+    # now I have start and target station, and all I need now is to pull the stops for all stations
+    # and cross those against my starting and ending stations to figure out how to get from point A to B
+    def third_question(A, B):
+         # input A, B from user
+         # Case 1: Direct ie there exists a route with both A and B stops. Redline goes from A to B
+         # Case 2: Transfer conceptually I have to get off of one train and get onto another in order to get to B
+         # keep track of a var called path [] which recursively adds Train 1 to Train 2 to Train 3 etc in order to get from A to B
 
-        print(find_next_route(A, B))
-
-    #print(first_question(data))
-    #second_question(data)
-    third_question(data)
+         return
+    print(first_question(data))
+    second_question(data)
+    print(third_question('Ashmont', 'Arlington'))
