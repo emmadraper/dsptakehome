@@ -33,10 +33,10 @@ class main():
             routes+=[route_object]
             #print(route_object)
 
-        maxstops = max(routes, key=lambda x:x['count'])
-        minstops = min(routes, key=lambda x:x['count'])
-        print(json.dumps(maxstops))
-        print(json.dumps(minstops))
+        #maxstops = max(routes, key=lambda x:x['count'])
+        #minstops = min(routes, key=lambda x:x['count'])
+        #print(json.dumps(maxstops))
+        #print(json.dumps(minstops))
 
         for route in routes:
             for stop in route['stops']:
@@ -46,4 +46,3 @@ class main():
 
     print(first_question(data))
     second_question(data)
-    #third_question(data, 'Ashmont', 'Arlington')
