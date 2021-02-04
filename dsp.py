@@ -33,12 +33,12 @@ class main():
                 for s in stops:
                     route_object["stops"] += [s["attributes"]["name"]]
                 routes+=[route_object]
-        print(routes)
         maxstops = max(routes, key=lambda x:x['count'])
         minstops = min(routes, key=lambda x:x['count'])
-        #print(json.dumps(maxstops))
-        #print(json.dumps(minstops))
+        print(json.dumps(maxstops))
+        print(json.dumps(minstops))
         return routes
+
         # C) A list of the stops that connect two or more subway routes along with the relevant route and the names for each of those stops
 
     # Extend your program again such that the user can provide any two stops on the subway routes
@@ -47,13 +47,31 @@ class main():
     # Ashmont to Arlington -> Redline, Greenline
     # now I have start and target station, and all I need now is to pull the stops for all stations
     # and cross those against my starting and ending stations to figure out how to get from point A to B
-    def third_question(A, B):
+    def third_question(routes, A, B, already_path=[]):
+        # get all stops
          # input A, B from user
          # Case 1: Direct ie there exists a route with both A and B stops. Redline goes from A to B
          # Case 2: Transfer conceptually I have to get off of one train and get onto another in order to get to B
          # keep track of a var called path [] which recursively adds Train 1 to Train 2 to Train 3 etc in order to get from A to B
+         connected_path = []
+         for r in routes:
+            if A in r["stops"] and r not in already_path:
+                   connected_path += [r]
 
-         return
-    print(first_question(data))
-    second_question(data)
-    print(third_question('Ashmont', 'Arlington'))
+         known_path = []
+         for connection in connected_path:
+            if B in connection["stops"]:
+                known_path += already_path + [connection]
+                continue
+            # lets check all other stop to see if it can take us to our target
+            for stops in connection["stops"]:
+                if A == B: # no need to check out current stiop
+                    continue
+                else:
+                    # let check the this stop for connections
+                    known_path += third_question(stops, B, already_path + [connection])
+         return known_path
+
+    #print(first_question(data))
+    #second_question(data)
+    print(third_question(routes, 'Ashmont', 'Arlington'))
