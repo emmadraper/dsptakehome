@@ -37,6 +37,8 @@ class main():
                 for s in stops:
                     route_object["stops"] += [s["attributes"]["name"]]
                 routes+=[route_object]
-        print(json.dumps(routes))
+        maxstops = max(routes, key=routes.count)
+        print(maxstops)
         return
+
     q2 = second_question(data)
