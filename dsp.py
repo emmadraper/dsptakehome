@@ -47,23 +47,24 @@ class main():
     # Ashmont to Arlington -> Redline, Greenline
     # now I have start and target station, and all I need now is to pull the stops for all stations
     # and cross those against my starting and ending stations to figure out how to get from point A to B
-    def third_question(routes, A, B, already_path=[]):
-        # get all stops
+    def third_question(A, B, already_path=[]):
          # input A, B from user
          # Case 1: Direct ie there exists a route with both A and B stops. Redline goes from A to B
          # Case 2: Transfer conceptually I have to get off of one train and get onto another in order to get to B
          # keep track of a var called path [] which recursively adds Train 1 to Train 2 to Train 3 etc in order to get from A to B
          connected_path = []
-         for r in routes:
-            if A in r["stops"] and r not in already_path:
-                   connected_path += [r]
+         # start by finding all of the subway routes we could start with based on input A
+         #for row in routes:
+         #   if A in row["stops"] and row not in already_path:
+         #          connected_path += [row]
 
          known_path = []
          for connection in connected_path:
+            # can current subway take us to B?
             if B in connection["stops"]:
                 known_path += already_path + [connection]
                 continue
-            # lets check all other stop to see if it can take us to our target
+            # check against all other stops to see if they can get us to B
             for stops in connection["stops"]:
                 if A == B: # no need to check out current stiop
                     continue
@@ -72,6 +73,6 @@ class main():
                     known_path += third_question(stops, B, already_path + [connection])
          return known_path
 
-    #print(first_question(data))
-    #second_question(data)
-    print(third_question(routes, 'Ashmont', 'Arlington'))
+    print(first_question(data))
+    second_question(data)
+    print(third_question('Ashmont', 'Arlington'))
